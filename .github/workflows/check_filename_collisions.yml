@@ -1,0 +1,14 @@
+name: Check File Name Collisions
+
+on:
+  pull_request:
+    paths:
+      - '**/*.m'  # Trigger the workflow when .m files are added or modified
+
+jobs:
+  check_collisions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check File Name Collisions
+        run: ./check_filename_collisions.sh
