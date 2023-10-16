@@ -8,7 +8,7 @@ on:
 jobs:
   check_collisions:
     runs-on: ubuntu-latest
-
     steps:
+      - uses: actions/checkout@v4
       - name: Check File Name Collisions
         run: ./check_filename_collisions.sh
