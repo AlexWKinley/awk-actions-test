@@ -1,6 +1,3 @@
-#!/bin/bash
-set -e
-
 # Get a list of all MATLAB files in the repository
 matlab_files=$(find . -type f -name "*.m")
 

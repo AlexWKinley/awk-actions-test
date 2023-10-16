@@ -11,4 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check File Name Collisions
-        run: ./check_filename_collisions.sh
+        run: |
+            chmod +x ./check_filename_collisions.sh
+            bash ./check_filename_collisions.sh
