@@ -2,13 +2,26 @@
 matlab_files=$(find . -type f -name "*.m")
 
 # Check for file name collisions
+declare -A file_names_count
 duplicate_files=""
+
 for file in $matlab_files; do
-    # Remove the leading "./" from the file path
-    filename=$(echo $file | cut -c 3-)
-    # Check if there's another file with the same name
-    if [[ $(find . -type f -name "$filename" | wc -l) -gt 1 ]]; then
-        duplicate_files="$duplicate_files\n- $filename"
+    # Extract the filename without the path
+    filename=$(basename "$file")
+
+    # Check if the filename already exists in the associative array
+    if [[ ${file_names_count["$filename"]} ]]; then
+        file_names_count["$filename"]=$((file_names_count["$filename"] + 1))
+    else
+        file_names_count["$filename"]=1
+    fi
+done
+
+# Find duplicate filenames
+for filename in "${!file_names_count[@]}"; do
+    count=${file_names_count["$filename"]}
+    if [[ $count -gt 1 ]]; then
+        duplicate_files="$duplicate_files\n- $filename (found $count times)"
     fi
 done
 
